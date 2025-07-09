@@ -1,0 +1,1675 @@
+/* frontend/src/index.css */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding-left: 15px;
+}
+
+/* Navbar (existing) */
+.navbar {
+  background-color: #28a745;
+  /* Green */
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links span {
+  margin-right: 15px;
+  font-weight: 500;
+}
+
+.navbar-links .btn-link {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-links .btn-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Auth Forms (existing) */
+.auth-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.auth-container h2 {
+  color: #28a745;
+  margin-bottom: 25px;
+}
+
+.auth-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.auth-form .form-control {
+  width: calc(100% - 20px);
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.auth-form .btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.auth-form .btn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.auth-form .btn:disabled {
+  background-color: #a0d4b5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 0.9em;
+}
+
+.success-message {
+  color: #28a745;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 0.9em;
+}
+
+.auth-container p {
+  margin-top: 20px;
+  font-size: 0.95em;
+}
+
+.auth-container p a {
+  color: #28a745;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-container p a:hover {
+  text-decoration: underline;
+}
+
+/* Welcome Page (old styles, now largely overridden by dashboard-specific ones) */
+.welcome-container {
+  /* These styles will largely be overridden or replaced by .dashboard-card and .welcome-section */
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.welcome-container h2 {
+  color: #28a745;
+  margin-bottom: 20px;
+}
+
+.welcome-container p {
+  font-size: 1.1em;
+  margin-bottom: 30px;
+}
+
+.welcome-actions .btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+.welcome-actions .btn-primary {
+  background-color: #28a745;
+  color: white;
+}
+
+.welcome-actions .btn-primary:hover {
+  background-color: #218838;
+}
+
+.welcome-actions .btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.welcome-actions .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+
+/* Notes Page (old styles, now largely overridden or adapted) */
+.notes-container {
+  /* These styles will largely be overridden or replaced by .dashboard-card and .notes-main-content */
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.notes-container h2 {
+  text-align: center;
+  color: #28a745;
+  margin-bottom: 30px;
+}
+
+.note-form-section {
+  margin-bottom: 40px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.note-form-section h3 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.create-note-form .form-group {
+  margin-bottom: 15px;
+}
+
+.create-note-form .form-control {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  resize: vertical;
+  /* Allow vertical resizing for textarea */
+}
+
+.create-note-form .btn-primary {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  /* Blue for create note */
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.create-note-form .btn-primary:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.create-note-form .btn-primary:disabled {
+  background-color: #a7d9ff;
+  cursor: not-allowed;
+}
+
+.notes-list-section {
+  margin-top: 30px;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.note-card {
+  background-color: #f0f8ff;
+  /* Light blue */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #d0e8ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 150px;
+}
+
+.note-card h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.note-card p {
+  font-size: 0.95em;
+  line-height: 1.5;
+  flex-grow: 1;
+  margin-bottom: 15px;
+}
+
+.note-card small {
+  color: #666;
+  font-size: 0.8em;
+  margin-top: auto;
+  /* Pushes to the bottom */
+  display: block;
+  margin-bottom: 10px;
+}
+
+.note-card .btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+  align-self: flex-end;
+  /* Align button to the bottom right */
+}
+
+.note-card .btn-danger:hover {
+  background-color: #c82333;
+}
+
+.loading-message {
+  text-align: center;
+  font-size: 1.2em;
+  color: #666;
+  margin-top: 50px;
+}
+
+/* Toastify custom styles (optional) */
+.Toastify__toast--success {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.Toastify__toast--error {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+
+/* Mobile responsiveness (existing) */
+@media (max-width: 768px) {
+.mobile-dashboard {
+  width: 100%;
+} 
+
+  .form-section {
+    flex: 1 !important;
+  }
+
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .navbar-links {
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .navbar-links span,
+  .navbar-links .btn-link {
+    margin: 5px 10px;
+  }
+
+  .auth-container {
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  .welcome-container {
+    padding: 30px 15px;
+    margin-top: 30px;
+  }
+
+  .welcome-actions {
+    flex-direction: column;
+  }
+
+  .welcome-actions .btn {
+    margin: 10px 0;
+  }
+
+  .notes-container {
+    padding: 20px;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+    /* Single column on small screens */
+  }
+}
+
+/* SignUp.css (existing - note that these class names might be applied to login.js now too) */
+.signup-container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 1200px;
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  /* Kept for signup layout, but dashboard-card will override/adapt */
+  min-height: 600px;
+}
+
+.form-section {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Logo Section */
+.logo-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.logo-icon {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.logo-inner {
+  width: 1rem;
+  height: 1rem;
+  background: white;
+  border-radius: 50%;
+}
+
+.logo-dot {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #3b82f6;
+  border-radius: 50%;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  letter-spacing: -0.025em;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Title Section */
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Messages */
+.message {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.success-message {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+/* Form */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  color: #1f2937;
+  background: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+/* OTP Input */
+.otp-input-container {
+  position: relative;
+}
+
+.otp-input {
+  padding-right: 3rem;
+}
+
+.otp-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6b7280;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.otp-toggle:hover {
+  color: #3b82f6;
+}
+
+/* Submit Button */
+.submit-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: none;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button-text {
+  position: relative;
+  z-index: 10;
+}
+
+.button-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.submit-button:hover .button-shimmer {
+  transform: translateX(100%);
+}
+
+/* Sign In Link */
+.signin-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+.signin-button {
+  color: #3b82f6;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signin-button:hover {
+  color: #1d4ed8;
+  border-bottom-color: #3b82f6;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
+}
+
+.wave-container {
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+}
+
+.wave-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(96, 165, 250, 0.3), rgba(59, 130, 246, 0.4), rgba(37, 99, 235, 0.5));
+}
+
+.wave-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (min-width: 1024px) {
+.mobile-dashboard {
+  width: 100%;
+} 
+  .form-section {
+    /* flex: 1 !important; */
+    padding: 4rem;
+  }
+
+  .logo-section {
+    justify-content: flex-start;
+  }
+
+  .title {
+    font-size: 3.5rem;
+    text-align: left;
+  }
+
+  .subtitle {
+    text-align: left;
+  }
+
+  .visual-section {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+.mobile-dashboard {
+  width: 100%;
+} 
+  .signup-card {
+    margin: 0.5rem;
+    border-radius: 1rem;
+  }
+
+  .form-section {
+    flex: 1 !important;
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+.resend-link {
+  color: #3b82f6;
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  align-self: flex-start;
+}
+
+.resend-link:hover {
+  color: #1d4ed8;
+  text-decoration-color: #3b82f6;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.checkbox-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #3b82f6;
+  border: 2px solid #d1d5db;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.checkbox-input:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.checkbox-label {
+  color: #374151;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+/* --- NEW/MODIFIED DASHBOARD-SPECIFIC CSS --- */
+
+/* Main container for the entire dashboard, mimicking signup-container */
+.dashboard-outer-container {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  /* Consistent with signup-container background */
+  display: flex;
+  align-items: center;
+  /* Center vertically in case content is short */
+  justify-content: center;
+  padding: 2rem 1rem;
+  /* Padding for overall page */
+  box-sizing: border-box;
+  /* Include padding in element's total width and height */
+}
+
+/* The main card-like structure of the dashboard, mimicking signup-card */
+.dashboard-card {
+  width: 100%;
+  max-width: 1200px;
+  /* Max width similar to signup-card for content area */
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  /* Strong shadow from signup-card */
+  overflow: hidden;
+  padding: 2rem;
+  /* Overall padding inside the dashboard card */
+  box-sizing: border-box;
+  display: flex;
+  /* Use flex to arrange sections */
+  flex-direction: column;
+  /* Stack welcome section above notes section */
+}
+
+/* Welcome Section adjustments */
+.welcome-section {
+  text-align: center;
+  padding-bottom: 2rem;
+  /* Add padding at the bottom to separate from notes */
+  margin-bottom: 2rem;
+  /* Spacing below the welcome section */
+  border-bottom: 1px solid #eee;
+  /* Light separator line */
+}
+
+.welcome-section h2 {
+  font-size: 2.5em;
+  /* Make welcome title larger */
+  margin-bottom: 15px;
+  color: #1f2937;
+  /* Darker color from signup title */
+}
+
+.welcome-section p {
+  font-size: 1.1em;
+  color: #4b5563;
+  /* Text color from signup subtitle */
+}
+
+.welcome-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* Space between buttons */
+}
+
+/* Divider style */
+.divider {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  /* Use a consistent light color for dividers */
+  margin: 30px 0;
+  /* Adjust margin for spacing */
+}
+
+/* Two-column layout for the main notes content */
+.notes-main-content {
+  display: flex;
+  gap: 30px;
+  /* Space between the two columns */
+  flex-wrap: wrap;
+  /* Allow columns to wrap on smaller screens */
+  align-items: flex-start;
+  /* Align items to the top of the flex container */
+}
+
+.notes-column {
+  flex: 1;
+  /* Each column takes equal flexible space */
+  min-width: 320px;
+  /* Minimum width before wrapping to single column */
+  padding: 15px;
+  /* Internal padding for each column */
+  box-sizing: border-box;
+}
+
+.left-column {
+  display: flex;
+  /* For aligning content vertically */
+  flex-direction: column;
+  align-items: center;
+  /* Center the form/button horizontally */
+  justify-content: flex-start;
+  /* Align content to the top */
+}
+
+
+/* Adjustments for the create note form section */
+.note-form-section {
+  background-color: #ffffff;
+  /* Explicitly set white background */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  /* Slightly more prominent shadow */
+  border: 1px solid #e0e0e0;
+  padding: 25px;
+  /* Adjusted padding */
+  border-radius: 12px;
+  /* More rounded corners */
+  width: 100%;
+  /* Ensure it fills its column */
+  box-sizing: border-box;
+}
+
+.note-form-section h3 {
+  margin-bottom: 25px;
+  font-size: 1.5em;
+  color: #1f2937;
+  /* Darker title color */
+  text-align: center;
+}
+
+/* Styling for the "+ Add a New Note" button when the form is hidden */
+.add-note-button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background-color: #28a745;
+  /* Green color for consistency */
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  width: auto;
+  /* Allow button to size based on content */
+  margin-top: 50px;
+  /* Push it down to align with 'My Notes' heading roughly */
+}
+
+.add-note-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Adjustments for Notes List */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* Slightly smaller minmax for more cards per row */
+  gap: 25px;
+  /* Slightly larger gap between cards */
+}
+
+.note-card {
+  background-color: #f8faff;
+  /* Lighter background for individual note cards */
+  border: 1px solid #e0efff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  /* Softer shadow */
+  padding: 25px;
+  border-radius: 12px;
+  /* More rounded corners */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+  /* Slightly taller cards */
+  transition: transform 0.2s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.note-card h3 {
+  font-size: 1.3em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.note-card p {
+  font-size: 1em;
+  color: #555;
+  line-height: 1.5;
+  flex-grow: 1;
+  margin-bottom: 15px;
+}
+
+.note-card small {
+  color: #888;
+  font-size: 0.85em;
+}
+
+/* Adjustments for form buttons within Create New Note form */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  /* Space between buttons in the form */
+  margin-top: 20px;
+  justify-content: flex-end;
+  /* Align buttons to the right */
+}
+
+.create-note-form .btn-primary {
+  background-color: #3b82f6;
+  /* Blue submit button for note creation */
+  width: auto;
+  /* Override 100% width from general auth-form btn */
+  padding: 10px 20px;
+}
+
+.create-note-form .btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.create-note-form .btn-secondary {
+  /* Style for the Cancel button */
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto;
+  /* Override 100% width */
+}
+
+.create-note-form .btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+
+/* Responsive adjustments for the new layout */
+@media (max-width: 992px) {
+.mobile-dashboard {
+  width: 100%;
+} 
+  .form-section {
+    flex: 1 !important;
+  }
+
+  /* Adjust breakpoint for two columns */
+  .notes-main-content {
+    flex-direction: column;
+    /* Stack columns on tablets and smaller */
+    gap: 20px;
+  }
+
+  .notes-column {
+    padding: 0;
+    /* Remove column padding as the sections themselves will have it */
+    min-width: unset;
+    /* Remove min-width constraint */
+  }
+
+  .left-column {
+    padding-top: 0;
+    /* No need to push down when stacked */
+  }
+
+  .add-note-button {
+    width: 100%;
+    /* Full width on stacked layout */
+    margin-top: 0;
+    /* Remove top margin */
+  }
+
+  .note-form-section {
+    margin-bottom: 20px;
+    /* Add margin below form when stacked */
+  }
+}
+
+@media (max-width: 576px) {
+  .mobile-dashboard {
+  width: 100%;
+} 
+  .visual-section {
+    display: none;
+  }
+
+  .form-section {
+    padding: 20px;
+    flex: 1 !important;
+  }
+
+  /* Smaller mobile screens */
+  .dashboard-card {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .welcome-section h2 {
+    font-size: 2em;
+  }
+
+  .welcome-actions {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .welcome-actions .btn {
+    width: 100%;
+    margin: 0;
+  }
+
+  .notes-grid {
+    grid-template-columns: 1fr;
+    /* Single column for notes cards */
+  }
+}
+
+
+
+
+
+
+.mobile-dashboard {
+  min-height: 100vh;
+  width: 600px;
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dashboard-header {
+  /* background: white; */
+  /* border-bottom: 1px solid #e2e8f0; */
+  padding: 35px 20px 15px 20px;
+  /* position: sticky; */
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: #3b82f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.logo-rays {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.ray {
+  position: absolute;
+  width: 2px;
+  height: 6px;
+  background: white;
+  border-radius: 1px;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+
+.ray:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.ray:nth-child(2) {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.ray:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.ray:nth-child(4) {
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.ray:nth-child(5) {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.ray:nth-child(6) {
+  transform: translate(-50%, -50%) rotate(225deg);
+}
+
+.ray:nth-child(7) {
+  transform: translate(-50%, -50%) rotate(270deg);
+}
+
+.ray:nth-child(8) {
+  transform: translate(-50%, -50%) rotate(315deg);
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.sign-out-btn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.sign-out-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.dashboard-main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.welcome-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.welcome-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.welcome-email {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0;
+}
+
+.create-note-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.create-note-btn:hover {
+  background: #2563eb;
+}
+
+.create-note-form {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.note-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.note-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.note-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.save-note-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.save-note-btn:hover {
+  background: #059669;
+}
+
+.notes-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.notes-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Align items to center vertically by default */
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  /* Indicate clickable */
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.note-item:hover {
+  background-color: #f1f5f9;
+}
+
+.note-item-expanded {
+  background-color: #e0f2fe;
+  /* Light blue background for expanded notes */
+  border-color: #93c5fd;
+  /* Blue border for expanded notes */
+  flex-direction: column;
+  /* Stack title and content vertically */
+  align-items: flex-start;
+  /* Align content to the start */
+  padding-bottom: 12px;
+  /* Add some padding below content */
+}
+
+.note-header-and-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  /* Allow it to take available space */
+  width: 100%;
+  /* Ensure it spans full width */
+}
+
+.note-title {
+  font-size: 16px;
+  color: #374151;
+  font-weight: 500;
+  margin-bottom: 0;
+  /* No margin by default */
+}
+
+.note-item-expanded .note-title {
+  margin-bottom: 8px;
+  /* Add margin when expanded */
+}
+
+.note-content-expanded {
+  font-size: 14px;
+  color: #4b5563;
+  white-space: pre-wrap;
+  /* Preserves whitespace and line breaks */
+  word-break: break-word;
+  /* Breaks long words */
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s;
+  flex-shrink: 0;
+  /* Prevent button from shrinking */
+  margin-left: 10px;
+  /* Space between content and delete button */
+}
+
+.note-item-expanded .delete-btn {
+  align-self: flex-end;
+  /* Align to the bottom right when expanded */
+  margin-top: 8px;
+  /* Push it down a bit */
+}
+
+.delete-btn:hover {
+  color: #dc2626;
+}
+
+@media (max-width: 480px) {
+.mobile-dashboard {
+  width: 100%;
+} 
+  .visual-section {
+    display: none;
+  }
+
+  .form-section {
+    flex: 1 !important;
+  }
+
+  .dashboard-main {
+    padding: 16px;
+  }
+
+  .welcome-card {
+    padding: 20px;
+  }
+
+  .welcome-title {
+    font-size: 20px;
+  }
+}
+
+
+
+
+/* General Body Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+/* Main Container */
+.container {
+  display: flex;
+  max-width: 1100px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+/* Form Section */
+.form-section {
+  padding: 40px;
+  flex: 0.6;
+}
+
+.space {
+  margin-top: 10px;
+}
+
+/* Logo Styles */
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #4a90e2;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Title and Subtitle */
+.form-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.form-subtitle {
+  margin-bottom: 30px;
+  color: #666;
+}
+
+/* Form Grouping and Labels */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Input Fields */
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* OTP Input Group */
+.otp-group {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.otp-input {
+  flex: 1;
+}
+
+.otp-toggle {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Buttons */
+.signup-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.signup-btn:hover {
+  background-color: #357abd;
+}
+
+.signup-btn:disabled {
+  background-color: #a0c7e4;
+  cursor: not-allowed;
+}
+
+/* Sign-in Link */
+.signin-link {
+  text-align: center;
+}
+
+.signin-link a {
+  color: #4a90e2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signin-link a:hover {
+  text-decoration: underline;
+}
+
+/* Visual Section */
+/* .visual-section {
+    flex: 1;
+    background: linear-gradient(to bottom, #4a90e2, #007bff);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* SignUpForm.css */
+
+/* ... (keep all your other styles like .container, .form-section, etc.) */
+
+/* Visual Section - REPACE the old styles with these */
+.visual-section {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.visual-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+
+
+/* Error and Success Messages */
+.message {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
