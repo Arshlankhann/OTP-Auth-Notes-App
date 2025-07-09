@@ -351,12 +351,15 @@ body {
 
 /* Mobile responsiveness (existing) */
 @media (max-width: 768px) {
-    body {
-    display: block !important; /* or unset, depending on your layout */
+  body {
+    display: block !important;
+    /* or unset, depending on your layout */
   }
+
   .container {
     margin: 0;
     padding-left: 0;
+    padding-bottom: 50px;
   }
 
   .mobile-dashboard {
@@ -1096,12 +1099,16 @@ img {
 }
 
 @media (max-width: 576px) {
-    body {
-    display: block !important; /* or unset, depending on your layout */
+  body {
+    display: block !important;
+    /* or unset, depending on your layout */
   }
+
   .container {
     margin: 0;
     padding-left: 0;
+    padding-bottom: 50px;
+
   }
 
   .mobile-dashboard {
@@ -1479,12 +1486,16 @@ img {
 }
 
 @media (max-width: 480px) {
-    body {
-    display: block !important; /* or unset, depending on your layout */
+  body {
+    display: block !important;
+    /* or unset, depending on your layout */
   }
+
   .container {
     margin: 0;
     padding-left: 0;
+    padding-bottom: 50px;
+
   }
 
   .mobile-dashboard {
