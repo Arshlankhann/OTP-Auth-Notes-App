@@ -351,9 +351,11 @@ body {
 
 /* Mobile responsiveness (existing) */
 @media (max-width: 768px) {
-    body {
-    display: block !important; /* or unset, depending on your layout */
+  body {
+    display: block !important;
+    /* or unset, depending on your layout */
   }
+
   .container {
     margin: 0;
     padding-left: 0;
@@ -365,6 +367,7 @@ body {
 
   .form-section {
     flex: 1 !important;
+    padding-top: 20% !important;
   }
 
   .navbar {
@@ -710,6 +713,8 @@ img {
   .form-section {
     /* flex: 1 !important; */
     padding: 4rem;
+    padding-top: 20% !important;
+
   }
 
   .logo-section {
@@ -748,6 +753,8 @@ img {
   .form-section {
     flex: 1 !important;
     padding: 1.5rem;
+    padding-top: 20% !important;
+
   }
 
   .title {
@@ -1061,6 +1068,8 @@ img {
 
   .form-section {
     flex: 1 !important;
+    padding-top: 20% !important;
+
   }
 
   /* Adjust breakpoint for two columns */
@@ -1096,9 +1105,11 @@ img {
 }
 
 @media (max-width: 576px) {
-    body {
-    display: block !important; /* or unset, depending on your layout */
+  body {
+    display: block !important;
+    /* or unset, depending on your layout */
   }
+
   .container {
     margin: 0;
     padding-left: 0;
@@ -1115,6 +1126,8 @@ img {
   .form-section {
     padding: 20px;
     flex: 1 !important;
+    padding-top: 20% !important;
+
   }
 
   /* Smaller mobile screens */
@@ -1479,9 +1492,11 @@ img {
 }
 
 @media (max-width: 480px) {
-    body {
-    display: block !important; /* or unset, depending on your layout */
+  body {
+    display: block !important;
+    /* or unset, depending on your layout */
   }
+
   .container {
     margin: 0;
     padding-left: 0;
@@ -1497,6 +1512,8 @@ img {
 
   .form-section {
     flex: 1 !important;
+    padding-top: 20% !important;
+
   }
 
   .dashboard-main {
