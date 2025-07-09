@@ -121,7 +121,7 @@ const Login = () => {
 
                     {step === 'verify-otp' && (
                         <div className="signin-link" style={{ textAlign: 'center', marginTop: '20px' }}>
-                            <a href="#" onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }} disabled={loading}>
+                            <a href="" onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }} disabled={loading}>
                                 Resend OTP
                             </a>
                         </div>
