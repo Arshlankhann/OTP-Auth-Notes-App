@@ -351,9 +351,17 @@ body {
 
 /* Mobile responsiveness (existing) */
 @media (max-width: 768px) {
-.mobile-dashboard {
-  width: 100%;
-} 
+    body {
+    display: block !important; /* or unset, depending on your layout */
+  }
+  .container {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .mobile-dashboard {
+    width: 100%;
+  }
 
   .form-section {
     flex: 1 !important;
@@ -690,9 +698,15 @@ img {
 
 /* Responsive Design */
 @media (min-width: 1024px) {
-.mobile-dashboard {
-  width: 100%;
-} 
+  .container {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .mobile-dashboard {
+    width: 100%;
+  }
+
   .form-section {
     /* flex: 1 !important; */
     padding: 4rem;
@@ -717,9 +731,15 @@ img {
 }
 
 @media (max-width: 768px) {
-.mobile-dashboard {
-  width: 100%;
-} 
+  .container {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .mobile-dashboard {
+    width: 100%;
+  }
+
   .signup-card {
     margin: 0.5rem;
     border-radius: 1rem;
@@ -1030,9 +1050,15 @@ img {
 
 /* Responsive adjustments for the new layout */
 @media (max-width: 992px) {
-.mobile-dashboard {
-  width: 100%;
-} 
+  .container {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .mobile-dashboard {
+    width: 100%;
+  }
+
   .form-section {
     flex: 1 !important;
   }
@@ -1070,9 +1096,18 @@ img {
 }
 
 @media (max-width: 576px) {
+    body {
+    display: block !important; /* or unset, depending on your layout */
+  }
+  .container {
+    margin: 0;
+    padding-left: 0;
+  }
+
   .mobile-dashboard {
-  width: 100%;
-} 
+    width: 100%;
+  }
+
   .visual-section {
     display: none;
   }
@@ -1444,9 +1479,18 @@ img {
 }
 
 @media (max-width: 480px) {
-.mobile-dashboard {
-  width: 100%;
-} 
+    body {
+    display: block !important; /* or unset, depending on your layout */
+  }
+  .container {
+    margin: 0;
+    padding-left: 0;
+  }
+
+  .mobile-dashboard {
+    width: 100%;
+  }
+
   .visual-section {
     display: none;
   }
