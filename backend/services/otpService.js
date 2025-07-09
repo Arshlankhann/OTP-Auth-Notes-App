@@ -31,8 +31,6 @@ const sendOtp = async (email) => {
     return user;
 };
 
-// Modified verifyOtp to accept name and dateOfBirth for signup flow
-// These parameters will be passed from the controller, and will be undefined/null for login flow
 const verifyOtp = async (email, otp, name, dateOfBirth) => {
     const user = await User.findOne({ email }).select('+otp +otpExpires'); // Select hidden fields
 
@@ -58,7 +56,7 @@ const verifyOtp = async (email, otp, name, dateOfBirth) => {
 
   
     if (name !== undefined && name !== null && dateOfBirth !== undefined && dateOfBirth !== null) {
-        // Ensure dateOfBirth is a valid Date object before assigning
+       
         if (dateOfBirth instanceof Date && !isNaN(dateOfBirth)) { // Check if it's a Date object and not "Invalid Date"
             user.name = name;
             user.dateOfBirth = dateOfBirth; // Assign directly, it should already be a valid Date object
