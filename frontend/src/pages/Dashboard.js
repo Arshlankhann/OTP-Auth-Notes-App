@@ -150,6 +150,7 @@ const Dashboard = () => {
               onChange={(e) => setNewNoteContent(e.target.value)}
               className="note-textarea"
               rows="4"
+              required
             />
             <button type="submit" className="save-note-btn" disabled={createLoading}>
               {createLoading ? 'Saving...' : 'Save Note'}
