@@ -42,8 +42,8 @@ router.post(
     [
         emailValidation,
         otpValidation,
-        nameValidation, // Name is required for signup verification
-        dateOfBirthValidation // Date of Birth is required for signup verification
+        nameValidation,
+        dateOfBirthValidation 
     ],
     signUpVerifyOtp
 );

@@ -1,3 +1,4 @@
+// frontend/src/pages/Login.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -23,6 +24,11 @@ const Login = () => {
         setLoading(true);
         setError('');
         setSuccessMessage('');
+
+        // --- Start Debugging Log ---
+        console.log('Frontend: handleRequestOtp called. Email state:', email);
+        // --- End Debugging Log ---
+
         try {
             const data = await authService.loginRequestOtp(email);
             setSuccessMessage(data.message);
@@ -95,11 +101,15 @@ const Login = () => {
                                 onChange={(e) => setOtp(e.target.value)}
                                 placeholder="Enter OTP"
                                 maxLength="6"
+                                // OTP input should only be enabled when step is 'verify-otp'
+                                disabled={step === 'request-otp'}
                             />
                             <button
                                 type="button"
                                 className="otp-toggle"
                                 onClick={toggleOtpVisibility}
+                                // Disable toggle if OTP input is disabled
+                                disabled={step === 'request-otp'}
                             >
                                 {otpVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                             </button>
@@ -120,9 +130,15 @@ const Login = () => {
 
                     {step === 'verify-otp' && (
                         <div className="signin-link" style={{ textAlign: 'center', marginTop: '20px' }}>
-                            <a href="" onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }} disabled={loading}>
+                            {/* Changed to a button for better semantics and consistent disabled state */}
+                            <button
+                                type="button"
+                                className="btn btn-link" // Use existing btn-link style or define new for resend
+                                onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }}
+                                disabled={loading} // Disable if an operation is already loading
+                            >
                                 Resend OTP
-                            </a>
+                            </button>
                         </div>
                     )}
 
