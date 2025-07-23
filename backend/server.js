@@ -6,7 +6,7 @@ const noteRoutes = require('./routes/noteRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const cors = require('cors');
 
-dotenv.config(); 
+dotenv.config({ quiet: true });
 
 connectDB(); 
 
