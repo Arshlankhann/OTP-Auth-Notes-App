@@ -587,20 +587,53 @@ body {
   padding-right: 3rem;
 }
 
-.otp-toggle {
+.password-group {
+  position: relative;
+  display: flex;
+  /* Crucial: make this a flex container */
+  align-items: center;
+  /* Vertically align items */
+  width: 100%;
+  /* Ensure it takes full available width */
+}
+
+/* Adjust the input field within the password group */
+.password-input {
+  flex-grow: 1;
+  /* Allow password input to grow and fill space */
+  padding-right: 40px;
+  /* Add padding to make space for the toggle button */
+  /* Ensure this class is applied to your actual input elements */
+}
+
+/* Styling for the password toggle button (eye icon) */
+.password-toggle {
   position: absolute;
-  right: 1rem;
+  right: 12px;
+  /* Position relative to .password-group, adjusted for better fit */
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #6b7280;
-  font-size: 1.125rem;
   cursor: pointer;
-  transition: color 0.3s ease;
+  color: #888;
+  /* Default icon color */
+  padding: 5px;
+  /* Added padding for easier clicking */
+  display: flex;
+  /* Ensures icon is centered within its own space */
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  /* Ensure it's above the input field */
 }
 
-.otp-toggle:hover {
+.password-toggle:hover {
+  color: #333;
+  /* Darker color on hover */
+}
+
+.password-toggle:hover {
   color: #3b82f6;
 }
 
@@ -758,20 +791,21 @@ img {
   }
 }
 
-.resend-link {
-  color: #3b82f6;
+.btn-link {
+  color: #1d4ed8;
   background: transparent;
   border: none;
-  font-size: 0.875rem;
+  font-size: 0.975rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: underline;
   text-decoration-color: transparent;
   align-self: flex-start;
+  padding-bottom: 2%;
 }
 
-.resend-link:hover {
+.btn-link:hover {
   color: #1d4ed8;
   text-decoration-color: #3b82f6;
 }
@@ -1630,14 +1664,6 @@ body {
   flex: 1;
 }
 
-.otp-toggle {
-  position: absolute;
-  right: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-}
 
 /* Buttons */
 .signup-btn {

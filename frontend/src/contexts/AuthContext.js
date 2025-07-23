@@ -1,4 +1,4 @@
-
+// frontend/src/contexts/AuthContext.js
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import authService from '../services/authService';
 
@@ -16,25 +16,27 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
+    const login = async (email, password) => { // New password-based login
+        const data = await authService.login(email, password);
+        setUser(data.user);
+        return data;
+    };
+
     const logout = () => {
         authService.logout();
         setUser(null);
     };
 
-    const handleSignUp = async (email, otp, name, dateOfBirth) => {
-        const data = await authService.signUpVerifyOtp(email, otp, name, dateOfBirth);
-        setUser(data.user);
-        return data;
-    };
-
-    const handleLogin = async (email, otp) => {
-        const data = await authService.loginVerifyOtp(email, otp);
+    // Modified handleSignUp to correctly receive and pass the password
+    const handleSignUp = async (email, otp, name, dateOfBirth, password) => {
+        // Ensure password is explicitly passed to the service
+        const data = await authService.signUpVerifyOtp(email, otp, name, dateOfBirth, password);
         setUser(data.user);
         return data;
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, logout, handleSignUp, handleLogin, authService }}>
+        <AuthContext.Provider value={{ user, loading, login, logout, handleSignUp, authService }}>
             {!loading && children}
         </AuthContext.Provider>
     );

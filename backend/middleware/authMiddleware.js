@@ -1,4 +1,4 @@
-
+// backend/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 const User = require('../models/User');
@@ -10,7 +10,8 @@ const protect = async (req, res, next) => {
         try {
             token = req.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, config.jwtSecret);
-            req.user = await User.findById(decoded.id).select('-otp -otpExpires');
+            // Explicitly exclude password, otp, otpExpires
+            req.user = await User.findById(decoded.id).select('-password -otp -otpExpires');
             next();
         } catch (error) {
             console.error(error);

@@ -1,59 +1,30 @@
-// frontend/src/pages/Login.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Eye, EyeOff } from 'lucide-react'; 
-import authService from '../services/authService';
 import { useAuth } from '../contexts/AuthContext';
-import Image from './rightimg.jpg';
+import Image from './rightimg.jpg'; // Assuming this image path is correct
 
 const Login = () => {
     const [email, setEmail] = useState('');
-    const [otp, setOtp] = useState('');
-    const [step, setStep] = useState('request-otp');
+    const [password, setPassword] = useState(''); // State for password
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [otpVisible, setOtpVisible] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(false); // State for password visibility
 
-    const { handleLogin } = useAuth();
+    const { login } = useAuth(); // Use the new password-based login from AuthContext
     const navigate = useNavigate();
 
-    const handleRequestOtp = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
-        setSuccessMessage('');
-
-        // --- Start Debugging Log ---
-        console.log('Frontend: handleRequestOtp called. Email state:', email);
-        // --- End Debugging Log ---
-
         try {
-            const data = await authService.loginRequestOtp(email);
-            setSuccessMessage(data.message);
-            setStep('verify-otp');
-            toast.success(data.message);
-        } catch (err) {
-            const errorMessage = err.response?.data?.message || 'Failed to send OTP. Please try again.';
-            setError(errorMessage);
-            toast.error(errorMessage);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const handleVerifyOtp = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError('');
-        setSuccessMessage('');
-        try {
-            await handleLogin(email, otp);
+            await login(email, password); // Call the password-based login
             toast.success('Logged in successfully!');
-            navigate('/dashboard');
+            navigate('/dashboard'); // Navigate to welcome/dashboard
         } catch (err) {
-            const errorMessage = err.response?.data?.message || 'OTP verification failed. Please try again.';
+            const errorMessage = err.response?.data?.message || 'Login failed. Please check your credentials.';
             setError(errorMessage);
             toast.error(errorMessage);
         } finally {
@@ -61,8 +32,8 @@ const Login = () => {
         }
     };
 
-    const toggleOtpVisibility = () => {
-        setOtpVisible(!otpVisible);
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
     };
 
     return (
@@ -77,9 +48,8 @@ const Login = () => {
                 <p className="form-subtitle">Please login to continue to your account</p>
 
                 {error && <div className="message error-message">{error}</div>}
-                {successMessage && <div className="message success-message">{successMessage}</div>}
 
-                <form onSubmit={step === 'request-otp' ? handleRequestOtp : handleVerifyOtp}>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label className="form-label">Email</label>
                         <input
@@ -89,55 +59,39 @@ const Login = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email address"
                             required
-                            disabled={step === 'verify-otp'}
                         />
-                        <div className='space'></div>
-                        <label className="form-label">OTP</label>
-                        <div className="otp-group">
+                    </div>
+
+                    <div className="form-group">
+                        <label className="form-label">Password</label>
+                        <div className="password-group">
                             <input
-                                type={otpVisible ? 'text' : 'password'}
-                                className="form-input otp-input"
-                                value={otp}
-                                onChange={(e) => setOtp(e.target.value)}
-                                placeholder="Enter OTP"
-                                maxLength="6"
-                                disabled={step === 'request-otp'}
+                                type={passwordVisible ? 'text' : 'password'}
+                                className="form-input password-input"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Enter your password"
+                                required
                             />
                             <button
                                 type="button"
-                                className="otp-toggle"
-                                onClick={toggleOtpVisibility}
-                                disabled={step === 'request-otp'}
+                                className="password-toggle"
+                                onClick={togglePasswordVisibility}
                             >
-                                {otpVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                                {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                             </button>
                         </div>
-
                     </div>
 
+                    <div className="forgot-password-link" style={{ textAlign: 'right', marginBottom: '20px' }}>
+                        <Link to="/forgot-password" style={{ color: '#007bff', textDecoration: 'none', fontWeight: 'bold' }}>
+                            Forgot Password?
+                        </Link>
+                    </div>
 
                     <button type="submit" className="signup-btn" disabled={loading}>
-                        {step === 'request-otp'
-                            ? loading
-                                ? 'Sending OTP...'
-                                : 'Get OTP'
-                            : loading
-                                ? 'Signing In...'
-                                : 'Sign In'}
+                        {loading ? 'Signing In...' : 'Sign In'}
                     </button>
-
-                    {step === 'verify-otp' && (
-                        <div className="signin-link" style={{ textAlign: 'center', marginTop: '20px' }}>
-                            <button
-                                type="button"
-                                className="btn btn-link" 
-                                onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }}
-                                disabled={loading} 
-                            >
-                                Resend OTP
-                            </button>
-                        </div>
-                    )}
 
                     <div className="signin-link">
                         Need an account?{' '}
