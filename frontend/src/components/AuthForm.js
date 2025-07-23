@@ -39,7 +39,6 @@ const AuthForm = ({ type, onSubmit, email, setEmail, otp, setOtp, dateOfBirth, s
                             className="form-control"
                         />
                     </div>
-                    {/* New Date of Birth Input */}
                     <div className="form-group">
                         <label htmlFor="dateOfBirth">Date of Birth:</label>
                         <input
@@ -47,7 +46,7 @@ const AuthForm = ({ type, onSubmit, email, setEmail, otp, setOtp, dateOfBirth, s
                             id="dateOfBirth"
                             value={dateOfBirth}
                             onChange={(e) => setDateOfBirth(e.target.value)}
-                            required // Make required if you want to enforce it
+                            required
                             className="form-control"
                         />
                     </div>

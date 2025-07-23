@@ -3,17 +3,17 @@ import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Eye, EyeOff } from 'lucide-react';
 import authService from '../services/authService';
-import Image from './rightimg.jpg'; // Assuming this image path is correct
+import Image from './rightimg.jpg'; 
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [step, setStep] = useState('request-otp'); // 'request-otp' or 'verify-otp'
+    const [step, setStep] = useState('request-otp'); 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [newPasswordVisible, setNewPasswordVisible] = useState(false); // For new password visibility
+    const [newPasswordVisible, setNewPasswordVisible] = useState(false);
 
     const navigate = useNavigate();
 
@@ -42,7 +42,6 @@ const ForgotPassword = () => {
         setError('');
         setSuccessMessage('');
 
-        // Client-side validation for new password
         if (!newPassword) {
             setError('New password is required.');
             toast.error('New password is required.');
@@ -59,7 +58,7 @@ const ForgotPassword = () => {
         try {
             const data = await authService.resetPasswordVerifyOtp(email, otp, newPassword);
             toast.success(data.message);
-            navigate('/login'); // Redirect to login page after successful reset
+            navigate('/login'); 
         } catch (err) {
             const errorMessage = err.response?.data?.message || 'Password reset failed. Please check OTP or try again.';
             setError(errorMessage);
@@ -106,7 +105,7 @@ const ForgotPassword = () => {
                             <div className="form-group">
                                 <label className="form-label">OTP</label>
                                 <input
-                                    type="text" // OTP field is always text
+                                    type="text" 
                                     className="form-input"
                                     value={otp}
                                     onChange={(e) => setOtp(e.target.value)}

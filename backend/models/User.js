@@ -1,11 +1,10 @@
-// backend/models/User.js
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs'); // Import bcryptjs
+const bcrypt = require('bcryptjs'); 
 
 const UserSchema = new mongoose.Schema({
-    name: { // New field for user's name
+    name: { 
         type: String,
-        required: function() { return this.isVerified; }, // Name is required once user is verified
+        required: function() { return this.isVerified; }, 
         trim: true
     },
     email: {
@@ -14,14 +13,14 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         match: [/.+@.+\..+/, 'Please enter a valid email address']
     },
-    password: { // Reintroducing password field
+    password: { 
         type: String,
-        required: function() { return this.isVerified; }, // Password is required once user is verified
-        select: false // Don't return password by default in queries
+        required: function() { return this.isVerified; },
+        select: false 
     },
     otp: {
         type: String,
-        select: false // Don't return OTP by default in queries
+        select: false 
     },
     otpExpires: {
         type: Date,
@@ -31,9 +30,9 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    dateOfBirth: { // Field for Date of Birth
+    dateOfBirth: { 
         type: Date,
-        required: function() { return this.isVerified; } // DOB is required once user is verified
+        required: function() { return this.isVerified; } 
     },
     createdAt: {
         type: Date,
@@ -41,7 +40,6 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-// Hash password before saving if it's modified or new
 UserSchema.pre('save', async function (next) {
     if (this.isModified('password')) {
         const salt = await bcrypt.genSalt(10);
@@ -50,14 +48,11 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
-// Compare password method
 UserSchema.methods.matchPassword = async function (enteredPassword) {
-    // Ensure password is selected before attempting to compare
     if (!this.password) {
-        // If password was not selected in the query, fetch it
         const userWithPassword = await mongoose.model('User').findById(this._id).select('+password');
-        if (!userWithPassword) return false; // User not found
-        this.password = userWithPassword.password; // Set it for this instance
+        if (!userWithPassword) return false; 
+        this.password = userWithPassword.password; 
     }
     return await bcrypt.compare(enteredPassword, this.password);
 };

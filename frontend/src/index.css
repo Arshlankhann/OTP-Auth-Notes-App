@@ -1,4 +1,3 @@
-/* frontend/src/index.css */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -13,10 +12,8 @@ body {
   padding-left: 15px;
 }
 
-/* Navbar (existing) */
 .navbar {
   background-color: #28a745;
-  /* Green */
   color: white;
   padding: 15px 20px;
   display: flex;
@@ -58,7 +55,6 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Auth Forms (existing) */
 .auth-container {
   background-color: #ffffff;
   padding: 30px;
@@ -151,9 +147,7 @@ body {
   text-decoration: underline;
 }
 
-/* Welcome Page (old styles, now largely overridden by dashboard-specific ones) */
 .welcome-container {
-  /* These styles will largely be overridden or replaced by .dashboard-card and .welcome-section */
   text-align: center;
   padding: 50px 20px;
   background-color: #ffffff;
@@ -201,9 +195,7 @@ body {
 }
 
 
-/* Notes Page (old styles, now largely overridden or adapted) */
 .notes-container {
-  /* These styles will largely be overridden or replaced by .dashboard-card and .notes-main-content */
   background-color: #ffffff;
   padding: 30px;
   border-radius: 8px;
@@ -242,7 +234,6 @@ body {
   border-radius: 5px;
   font-size: 1em;
   resize: vertical;
-  /* Allow vertical resizing for textarea */
 }
 
 .create-note-form .btn-primary {
@@ -251,7 +242,6 @@ body {
   border: none;
   border-radius: 5px;
   background-color: #007bff;
-  /* Blue for create note */
   color: white;
   font-size: 1em;
   cursor: pointer;
@@ -308,7 +298,6 @@ body {
   color: #666;
   font-size: 0.8em;
   margin-top: auto;
-  /* Pushes to the bottom */
   display: block;
   margin-bottom: 10px;
 }
@@ -323,7 +312,6 @@ body {
   font-size: 0.9em;
   transition: background-color 0.3s ease;
   align-self: flex-end;
-  /* Align button to the bottom right */
 }
 
 .note-card .btn-danger:hover {
@@ -337,7 +325,6 @@ body {
   margin-top: 50px;
 }
 
-/* Toastify custom styles (optional) */
 .Toastify__toast--success {
   background-color: #28a745 !important;
   color: white !important;
@@ -349,11 +336,9 @@ body {
 }
 
 
-/* Mobile responsiveness (existing) */
 @media (max-width: 768px) {
   body {
     display: block !important;
-    /* or unset, depending on your layout */
   }
 
   .container {
@@ -410,11 +395,9 @@ body {
 
   .notes-grid {
     grid-template-columns: 1fr;
-    /* Single column on small screens */
   }
 }
 
-/* SignUp.css (existing - note that these class names might be applied to login.js now too) */
 .signup-container {
   min-height: 100vh;
   background-color: #f3f4f6;
@@ -432,7 +415,6 @@ body {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   display: flex;
-  /* Kept for signup layout, but dashboard-card will override/adapt */
   min-height: 600px;
 }
 
@@ -444,7 +426,6 @@ body {
   justify-content: center;
 }
 
-/* Logo Section */
 .logo-section {
   display: flex;
   align-items: center;
@@ -499,7 +480,6 @@ body {
   }
 }
 
-/* Title Section */
 .title {
   font-size: 3rem;
   font-weight: 700;
@@ -515,7 +495,6 @@ body {
   text-align: center;
 }
 
-/* Messages */
 .message {
   margin-bottom: 1.5rem;
   padding: 1rem;
@@ -536,7 +515,6 @@ body {
   color: #166534;
 }
 
-/* Form */
 .form-container {
   display: flex;
   flex-direction: column;
@@ -578,7 +556,6 @@ body {
   color: #9ca3af;
 }
 
-/* OTP Input */
 .otp-input-container {
   position: relative;
 }
@@ -590,54 +567,39 @@ body {
 .password-group {
   position: relative;
   display: flex;
-  /* Crucial: make this a flex container */
   align-items: center;
-  /* Vertically align items */
   width: 100%;
-  /* Ensure it takes full available width */
 }
 
-/* Adjust the input field within the password group */
 .password-input {
   flex-grow: 1;
-  /* Allow password input to grow and fill space */
   padding-right: 40px;
-  /* Add padding to make space for the toggle button */
-  /* Ensure this class is applied to your actual input elements */
 }
 
-/* Styling for the password toggle button (eye icon) */
 .password-toggle {
   position: absolute;
   right: 12px;
-  /* Position relative to .password-group, adjusted for better fit */
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
   color: #888;
-  /* Default icon color */
   padding: 5px;
-  /* Added padding for easier clicking */
   display: flex;
-  /* Ensures icon is centered within its own space */
   align-items: center;
   justify-content: center;
   z-index: 10;
-  /* Ensure it's above the input field */
 }
 
 .password-toggle:hover {
   color: #333;
-  /* Darker color on hover */
 }
 
 .password-toggle:hover {
   color: #3b82f6;
 }
 
-/* Submit Button */
 .submit-button {
   width: 100%;
   padding: 1rem;
@@ -683,7 +645,6 @@ body {
   transform: translateX(100%);
 }
 
-/* Sign In Link */
 .signin-link {
   text-align: center;
   margin-top: 1.5rem;
@@ -835,65 +796,45 @@ img {
   cursor: pointer;
 }
 
-/* --- NEW/MODIFIED DASHBOARD-SPECIFIC CSS --- */
-
-/* Main container for the entire dashboard, mimicking signup-container */
 .dashboard-outer-container {
   min-height: 100vh;
   background-color: #f3f4f6;
-  /* Consistent with signup-container background */
   display: flex;
   align-items: center;
-  /* Center vertically in case content is short */
   justify-content: center;
   padding: 2rem 1rem;
-  /* Padding for overall page */
   box-sizing: border-box;
-  /* Include padding in element's total width and height */
 }
 
-/* The main card-like structure of the dashboard, mimicking signup-card */
 .dashboard-card {
   width: 100%;
   max-width: 1200px;
-  /* Max width similar to signup-card for content area */
   background: white;
   border-radius: 1.5rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  /* Strong shadow from signup-card */
   overflow: hidden;
   padding: 2rem;
-  /* Overall padding inside the dashboard card */
   box-sizing: border-box;
   display: flex;
-  /* Use flex to arrange sections */
   flex-direction: column;
-  /* Stack welcome section above notes section */
 }
 
-/* Welcome Section adjustments */
 .welcome-section {
   text-align: center;
   padding-bottom: 2rem;
-  /* Add padding at the bottom to separate from notes */
   margin-bottom: 2rem;
-  /* Spacing below the welcome section */
   border-bottom: 1px solid #eee;
-  /* Light separator line */
 }
 
 .welcome-section h2 {
   font-size: 2.5em;
-  /* Make welcome title larger */
   margin-bottom: 15px;
   color: #1f2937;
-  /* Darker color from signup title */
 }
 
 .welcome-section p {
   font-size: 1.1em;
   color: #4b5563;
-  /* Text color from signup subtitle */
 }
 
 .welcome-actions {
@@ -901,37 +842,26 @@ img {
   display: flex;
   justify-content: center;
   gap: 20px;
-  /* Space between buttons */
 }
 
-/* Divider style */
 .divider {
   border: 0;
   height: 1px;
   background: #eee;
-  /* Use a consistent light color for dividers */
   margin: 30px 0;
-  /* Adjust margin for spacing */
 }
 
-/* Two-column layout for the main notes content */
 .notes-main-content {
   display: flex;
   gap: 30px;
-  /* Space between the two columns */
   flex-wrap: wrap;
-  /* Allow columns to wrap on smaller screens */
   align-items: flex-start;
-  /* Align items to the top of the flex container */
 }
 
 .notes-column {
   flex: 1;
-  /* Each column takes equal flexible space */
   min-width: 320px;
-  /* Minimum width before wrapping to single column */
   padding: 15px;
-  /* Internal padding for each column */
   box-sizing: border-box;
 }
 

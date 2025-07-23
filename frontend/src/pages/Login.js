@@ -3,16 +3,16 @@ import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Eye, EyeOff } from 'lucide-react'; 
 import { useAuth } from '../contexts/AuthContext';
-import Image from './rightimg.jpg'; // Assuming this image path is correct
+import Image from './rightimg.jpg'; 
 
 const Login = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(''); // State for password
+    const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [passwordVisible, setPasswordVisible] = useState(false); // State for password visibility
+    const [passwordVisible, setPasswordVisible] = useState(false); 
 
-    const { login } = useAuth(); // Use the new password-based login from AuthContext
+    const { login } = useAuth(); 
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -20,9 +20,9 @@ const Login = () => {
         setLoading(true);
         setError('');
         try {
-            await login(email, password); // Call the password-based login
+            await login(email, password); 
             toast.success('Logged in successfully!');
-            navigate('/dashboard'); // Navigate to welcome/dashboard
+            navigate('/dashboard');
         } catch (err) {
             const errorMessage = err.response?.data?.message || 'Login failed. Please check your credentials.';
             setError(errorMessage);
