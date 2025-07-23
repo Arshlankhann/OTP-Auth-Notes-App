@@ -3,7 +3,7 @@ import noteService from '../services/noteService';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Trash2 } from 'lucide-react'; // Import Trash2 icon
+import { Trash2 } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const [createLoading, setCreateLoading] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
-  const [expandedNoteId, setExpandedNoteId] = useState(null); // New state for expanded note
+  const [expandedNoteId, setExpandedNoteId] = useState(null); 
 
   const createNoteFormRef = useRef(null);
 
@@ -56,7 +56,7 @@ const Dashboard = () => {
       setNewNoteTitle('');
       setNewNoteContent('');
       toast.success('Note created successfully!');
-      setShowCreateForm(false); // Hide the form after successful creation
+      setShowCreateForm(false);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create note.');
       toast.error('Failed to create note.');
@@ -82,7 +82,7 @@ const Dashboard = () => {
     logout();
   };
 
-  // New function to handle note clicks (expand/collapse)
+
   const handleNoteClick = (id) => {
     setExpandedNoteId(prevId => (prevId === id ? null : id));
   };
@@ -93,7 +93,6 @@ const Dashboard = () => {
 
   return (
     <div className="mobile-dashboard">
-      {/* Header */}
       <header className="dashboard-header">
         <div className="header-content">
           <div className="header-left">
@@ -117,15 +116,12 @@ const Dashboard = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="dashboard-main">
-        {/* Welcome Card */}
         <div className="welcome-card">
           <h2 className="welcome-title">Welcome, {user.name || user.email}!</h2>
           <p className="welcome-email">Email: {user.email}</p>
         </div>
 
-        {/* Create Note Button */}
         <button
           className="create-note-btn"
           onClick={() => setShowCreateForm(!showCreateForm)}
@@ -133,7 +129,6 @@ const Dashboard = () => {
           {showCreateForm ? 'Cancel' : 'Create Note'}
         </button>
 
-        {/* Create Note Form */}
         {showCreateForm && (
           <form className="create-note-form" onSubmit={handleCreateNote} ref={createNoteFormRef}>
             <input
@@ -158,7 +153,6 @@ const Dashboard = () => {
           </form>
         )}
 
-        {/* Notes Section */}
         <div className="notes-section">
           <h3 className="notes-title">Notes</h3>
           {error && <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
@@ -172,7 +166,7 @@ const Dashboard = () => {
                 <div
                   key={note._id}
                   className={`note-item ${expandedNoteId === note._id ? 'note-item-expanded' : ''}`}
-                  onClick={() => handleNoteClick(note._id)} // Click handler for expand/collapse
+                  onClick={() => handleNoteClick(note._id)} 
                 >
                   <div className="note-header-and-content">
                     <span className="note-title">{note.title}</span>
@@ -183,7 +177,7 @@ const Dashboard = () => {
                   <button
                     className="delete-btn"
                     onClick={(e) => {
-                      e.stopPropagation(); // Prevent note expansion when deleting
+                      e.stopPropagation(); 
                       handleDeleteNote(note._id);
                     }}
                   >

@@ -5,22 +5,21 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const noteRoutes = require('./routes/noteRoutes');
 const errorHandler = require('./middleware/errorHandler');
-const cors = require('cors'); // For handling CORS issues
+const cors = require('cors');
 
-dotenv.config(); // Load environment variables
+dotenv.config(); 
 
-connectDB(); // Connect to MongoDB
+connectDB(); 
 
 const app = express();
 
-app.use(express.json()); // Body parser for JSON
-app.use(cors()); // Enable CORS for all routes
+app.use(express.json());
+app.use(cors()); 
 
-// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/notes', noteRoutes);
 
-// Error Handler Middleware (should be last)
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

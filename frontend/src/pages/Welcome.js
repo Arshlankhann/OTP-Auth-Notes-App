@@ -2,14 +2,14 @@
 import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns'; // Import format for date display
+import { format } from 'date-fns';
 
 const Welcome = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
     if (!user) {
-        navigate('/login'); // Redirect to login if no user is logged in
+        navigate('/login');
         return null;
     }
 

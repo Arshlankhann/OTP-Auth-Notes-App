@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
     },
     otp: {
         type: String,
-        select: false // Don't return OTP by default in queries
+        select: false 
     },
     otpExpires: {
         type: Date,
@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    dateOfBirth: { // Field for Date of Birth
+    dateOfBirth: {
         type: Date,
         // required: function() { return this.isVerified; } // DOB is required once user is verified
     },

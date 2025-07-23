@@ -20,13 +20,8 @@ function App() {
                     <Routes>
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<SignUp />} />
-                        {/* Set the Dashboard as the primary route after login */}
                         <Route path="/dashboard" element={<Dashboard />} />
-                        {/* You might want to redirect the root path to dashboard if logged in, or login if not */}
-                        <Route path="/" element={<Dashboard />} /> {/* Or a protected route */}
-                        {/* Remove these old routes: */}
-                        {/* <Route path="/welcome" element={<Welcome />} /> */}
-                        {/* <Route path="/notes" element={<Notes />} /> */}
+                        <Route path="/" element={<Dashboard />} /> 
                     </Routes>
                 </div>
             </AuthProvider>

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Eye, EyeOff } from 'lucide-react'; // Import Eye and EyeOff icons
+import { Eye, EyeOff } from 'lucide-react'; 
 import authService from '../services/authService';
 import { useAuth } from '../contexts/AuthContext';
 import Image from './rightimg.jpg';
@@ -101,14 +101,12 @@ const Login = () => {
                                 onChange={(e) => setOtp(e.target.value)}
                                 placeholder="Enter OTP"
                                 maxLength="6"
-                                // OTP input should only be enabled when step is 'verify-otp'
                                 disabled={step === 'request-otp'}
                             />
                             <button
                                 type="button"
                                 className="otp-toggle"
                                 onClick={toggleOtpVisibility}
-                                // Disable toggle if OTP input is disabled
                                 disabled={step === 'request-otp'}
                             >
                                 {otpVisible ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -130,12 +128,11 @@ const Login = () => {
 
                     {step === 'verify-otp' && (
                         <div className="signin-link" style={{ textAlign: 'center', marginTop: '20px' }}>
-                            {/* Changed to a button for better semantics and consistent disabled state */}
                             <button
                                 type="button"
-                                className="btn btn-link" // Use existing btn-link style or define new for resend
+                                className="btn btn-link" 
                                 onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }}
-                                disabled={loading} // Disable if an operation is already loading
+                                disabled={loading} 
                             >
                                 Resend OTP
                             </button>

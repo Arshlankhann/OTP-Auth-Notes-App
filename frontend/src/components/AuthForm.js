@@ -57,8 +57,7 @@ const AuthForm = ({ type, onSubmit, email, setEmail, otp, setOtp, dateOfBirth, s
                 </>
             )}
 
-            {/* Login type is now handled by signup-request and verify-otp */}
-            {/* The previous 'login' type is removed */}
+
         </form>
     );
 };

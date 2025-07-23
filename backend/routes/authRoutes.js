@@ -11,7 +11,6 @@ const {
 const { protect } = require('../middleware/authMiddleware');
 const { body } = require('express-validator');
 
-// Validation middleware for common fields
 const emailValidation = body('email')
     .isEmail().withMessage('Please enter a valid email')
     .normalizeEmail();
@@ -30,7 +29,6 @@ const dateOfBirthValidation = body('dateOfBirth')
     .isISO8601().toDate().withMessage('Please enter a valid date of birth (YYYY-MM-DD)');
 
 
-// Signup Routes
 router.post(
     '/signup-request-otp',
     [emailValidation],
@@ -48,7 +46,6 @@ router.post(
     signUpVerifyOtp
 );
 
-// Login Routes
 router.post(
     '/login-request-otp',
     [emailValidation],
