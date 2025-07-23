@@ -753,11 +753,11 @@ img {
 }
 
 .btn-link {
-  color: #1d4ed8;
+  color: #007bff;
   background: transparent;
   border: none;
-  font-size: 0.975rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: underline;
