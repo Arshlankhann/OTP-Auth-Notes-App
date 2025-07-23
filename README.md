@@ -1,6 +1,6 @@
-# 🚀 Highway Delite – OTP Auth Notes App
+# 🚀 OTP Auth Notes App
 
-A full-stack MERN application built for the **Highway Delite Assessment**, featuring:
+A full-stack MERN application built for the **Highway Delite**, featuring:
 
 ✅ **Email + OTP Signup/Login**  
 📝 **Personal Note Management** 
