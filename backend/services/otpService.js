@@ -13,26 +13,45 @@ const sendOtp = async (email) => {
     if (user) {
         user.otp = otp;
         user.otpExpires = otpExpires;
-        user.isVerified = false; // Reset verification status if re-sending OTP
+        user.isVerified = false;
         await user.save();
     } else {
-        // For signup flow where user might not exist yet, create a new user without password
         user = new User({ email, otp, otpExpires });
         await user.save();
     }
 
-    await sendEmail({
-        to: email,
-        subject: 'Your OTP for Note App Signup/Login',
-        text: `Your OTP is: ${otp}. It is valid for ${config.otpExpiryMinutes} minutes.`,
-        html: `<p>Your OTP is: <strong>${otp}</strong>. It is valid for ${config.otpExpiryMinutes} minutes.</p>`,
-    });
+await sendEmail({
+    to: email,
+    subject: 'Your One-Time Password (OTP) for Account Verification',
+    text: `Hello,
+
+Your One-Time Password (OTP) is: ${otp}
+
+Please use this code to verify your account. This OTP is valid for the next ${config.otpExpiryMinutes} minutes.
+
+If you did not request this verification, please ignore this email.
+
+Best regards,
+Arshlan Khan
+    `,
+    html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <p>Hello,</p>
+            <p>Your One-Time Password (OTP) is:</p>
+            <h2 style="color: #2c3e50;">${otp}</h2>
+            <p>Please use this code to verify your account. This OTP is valid for the next 
+            <strong>${config.otpExpiryMinutes} minutes</strong>.</p>
+            <p>If you did not request this verification, please ignore this email.</p>
+            <p style="margin-top: 20px;">Best regards,<br><strong>Arshlan Khan</strong></p>
+        </div>
+    `,
+});
 
     return user;
 };
 
 const verifyOtp = async (email, otp, name, dateOfBirth) => {
-    const user = await User.findOne({ email }).select('+otp +otpExpires'); // Select hidden fields
+    const user = await User.findOne({ email }).select('+otp +otpExpires'); 
 
     if (!user) {
         throw new Error('User not found');
@@ -57,9 +76,9 @@ const verifyOtp = async (email, otp, name, dateOfBirth) => {
   
     if (name !== undefined && name !== null && dateOfBirth !== undefined && dateOfBirth !== null) {
        
-        if (dateOfBirth instanceof Date && !isNaN(dateOfBirth)) { // Check if it's a Date object and not "Invalid Date"
+        if (dateOfBirth instanceof Date && !isNaN(dateOfBirth)) { 
             user.name = name;
-            user.dateOfBirth = dateOfBirth; // Assign directly, it should already be a valid Date object
+            user.dateOfBirth = dateOfBirth; 
             console.log('Assigned name and dateOfBirth to user object.');
         } else {
             console.error('DateOfBirth is provided but invalid:', dateOfBirth);
@@ -69,10 +88,10 @@ const verifyOtp = async (email, otp, name, dateOfBirth) => {
         console.log('Name or DateOfBirth not provided (likely login flow).');
     }
 
-    user.isVerified = true; // Mark user as verified
-    user.otp = undefined; // Clear OTP after successful verification
+    user.isVerified = true;
+    user.otp = undefined; 
     user.otpExpires = undefined;
-    await user.save(); // Save the user document with updated fields and verification status
+    await user.save(); 
     console.log('User saved successfully with isVerified:', user.isVerified);
 
     return user;
