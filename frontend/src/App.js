@@ -34,7 +34,7 @@ function App() {
                         <Route path="*" element={<h2>404 Not Found</h2>} /> 
                     </Routes>
                 </div>
-                <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+                <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
             </AuthProvider>
         </Router>
     );
