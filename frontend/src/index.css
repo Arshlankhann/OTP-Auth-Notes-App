@@ -1263,7 +1263,7 @@ img {
 }
 
 .create-note-btn {
-  background: #3b82f6;
+  background: #007bff;
   color: white;
   border: none;
   border-radius: 8px;
@@ -1276,7 +1276,7 @@ img {
 }
 
 .create-note-btn:hover {
-  background: #2563eb;
+  background: #007bff;
 }
 
 .create-note-form {
