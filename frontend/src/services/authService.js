@@ -48,7 +48,6 @@ const loginVerifyOtp = async (email, otp) => {
             console.error('authService: No response received for loginVerifyOtp:', error.request);
             throw new Error('Network error. Please check your connection.');
         } else {
-            // Something happened in setting up the request that triggered an Error
             console.error('authService: Error setting up loginVerifyOtp request:', error.message);
             throw new Error('An unexpected error occurred.');
         }

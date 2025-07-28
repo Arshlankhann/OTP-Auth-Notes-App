@@ -1,10 +1,13 @@
 const User = require('../models/User');
-const generateOTP = require('../utils/otpGenerator');
 const sendEmail = require('../utils/emailSender');
 const config = require('../config/config');
 
+function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000).toString(); 
+}
+
 const sendOtp = async (email) => {
-    const otp = generateOTP();
+    const otp = generateOTP(); 
     const otpExpires = new Date(Date.now() + config.otpExpiryMinutes * 60 * 1000); 
 
     let user = await User.findOne({ email });
@@ -50,7 +53,7 @@ Arshlan Khan
     return user;
 };
 
-const verifyOtp = async (email, otp, name = undefined, dateOfBirth = undefined, password = undefined) => {  
+const verifyOtp = async (email, otp, name = undefined, dateOfBirth = undefined, password = undefined) => { 
     const user = await User.findOne({ email }).select('+otp +otpExpires +password');
 
     // --- Start Debugging Logs (Service) ---

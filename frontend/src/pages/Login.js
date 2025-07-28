@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Eye, EyeOff } from 'lucide-react'; 
 import authService from '../services/authService';
 import { useAuth } from '../contexts/AuthContext'; 
-import Image from './rightimg.jpg'; // Assuming this image path is correct
+import Image from './rightimg.jpg'; 
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -14,9 +14,8 @@ const Login = () => {
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [otpVisible, setOtpVisible] = useState(false); 
-    const [keepLoggedIn, setKeepLoggedIn] = useState(false); // New state for "Keep me logged in" checkbox
+    const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
-    // FIX: Destructure 'login' directly, as that's the function exposed by AuthContext for login
     const { login } = useAuth(); 
     const navigate = useNavigate();
 
@@ -53,13 +52,12 @@ const Login = () => {
             return;
         }
 
-        console.log('Frontend: handleVerifyOtp called.'); 
-        console.log('Frontend: Current email state:', email); 
-        console.log('Frontend: Current OTP state:', otp); 
-        console.log('Frontend: About to call login (from useAuth).'); // Updated log
-        console.log('Frontend: Type of login:', typeof login); // Check type of 'login'
+        // console.log('Frontend: handleVerifyOtp called.'); 
+        // console.log('Frontend: Current email state:', email); 
+        // console.log('Frontend: Current OTP state:', otp); 
+        // console.log('Frontend: About to call login (from useAuth).'); 
+        // console.log('Frontend: Type of login:', typeof login); 
 
-        // FIX: Check if 'login' is a function before calling
         if (typeof login !== 'function') {
             console.error('Frontend Error: login function from AuthContext is not available.');
             setError('Authentication service not available. Please try refreshing the page.');
@@ -69,9 +67,6 @@ const Login = () => {
         }
 
         try {
-            // Note: The 'keepLoggedIn' state would typically be passed to the backend
-            // for session management (e.g., extend token expiry).
-            // For this implementation, it's a frontend UI element.
             await login(email, otp); 
             toast.success('Logged in successfully!');
             navigate('/dashboard'); 
@@ -145,7 +140,6 @@ const Login = () => {
                                 Resend OTP
                             </button>
                         </div>
-                        {/* Keep me logged in checkbox for request-otp step */}
                         <div className="checkbox-container" style={{ textAlign: 'left', marginTop: '5px',marginBottom: '10px' }}>
                             <input
                                 type="checkbox"
@@ -206,7 +200,6 @@ const Login = () => {
                                 Resend OTP
                             </button>
                         </div>
-                        {/* Keep me logged in checkbox for verify-otp step */}
                         <div className="checkbox-container" style={{ textAlign: 'left', marginTop: '15px' }}>
                             <input
                                 type="checkbox"
@@ -230,7 +223,6 @@ const Login = () => {
             </div>
 
             <div className="visual-section">
-                {/* Removed the ternary operator, assuming Image is always a string URL */}
                 <img src={Image} alt="Decorative visual" className="visual-image" />
             </div>
         </div>
