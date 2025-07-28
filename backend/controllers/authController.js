@@ -1,4 +1,3 @@
-
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
@@ -24,7 +23,7 @@ const signUpRequestOtp = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (user && user.isVerified) {
-            return res.status(400).json({ message: 'User with this email already exists and is verified. Please use the password login page.' });
+            return res.status(400).json({ message: 'User with this email already exists and is verified. Please use login page.' });
         } else if (user && !user.isVerified) {
             await sendOtp(email);
             return res.status(200).json({ message: 'Account not verified. OTP sent for verification.' });
@@ -67,28 +66,47 @@ const signUpVerifyOtp = async (req, res) => {
     }
 };
 
-const login = async (req, res) => {
+const loginRequestOtp = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        console.log('Validation errors in login:', errors.array());
+        console.log('Validation errors in loginRequestOtp:', errors.array());
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { email } = req.body;
 
     try {
-        const user = await User.findOne({ email }).select('+password');
+        const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'Account not found. Please sign up.' });
         }
 
+        await sendOtp(email);
+        res.status(200).json({ message: 'OTP sent to your email for login.' });
+    } catch (error) {
+        console.error('Error in loginRequestOtp:', error);
+        res.status(500).json({ message: 'Failed to send OTP', error: error.message });
+    }
+};
+
+const loginVerifyOtp = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log('Validation errors in loginVerifyOtp:', errors.array());
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, otp } = req.body;
+
+    // console.log('--- loginVerifyOtp Controller Debugging ---');
+    // console.log('Received email for verification:', email);
+    // console.log('Received OTP for verification:', otp);
+
+    try {
+        const user = await verifyOtp(email, otp);
         if (!user.isVerified) {
-            return res.status(400).json({ message: 'Account not verified. Please complete signup via OTP.' });
-        }
-
-        if (!(await user.matchPassword(password))) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ message: 'Account not fully verified. Please complete signup or re-verify.' });
         }
 
         const token = generateToken(user._id);
@@ -103,8 +121,8 @@ const login = async (req, res) => {
             token,
         });
     } catch (error) {
-        console.error('Error in login:', error);
-        res.status(500).json({ message: 'Server error' });
+        console.error('Error in loginVerifyOtp controller:', error);
+        res.status(400).json({ message: error.message });
     }
 };
 
@@ -140,13 +158,13 @@ const resetPasswordVerifyOtp = async (req, res) => {
     const { email, otp, newPassword } = req.body;
 
     try {
-        const user = await verifyOtp(email, otp);
+        const user = await verifyOtp(email, otp); 
 
         if (!user) {
             return res.status(400).json({ message: 'Invalid OTP or email.' });
         }
 
-        user.password = newPassword;
+        user.password = newPassword; 
         await user.save();
 
         res.status(200).json({ message: 'Password has been reset successfully. You can now log in with your new password.' });
@@ -171,7 +189,8 @@ const getMe = async (req, res) => {
 module.exports = {
     signUpRequestOtp,
     signUpVerifyOtp,
-    login, 
+    loginRequestOtp,
+    loginVerifyOtp,
     forgotPasswordRequestOtp,
     resetPasswordVerifyOtp,
     getMe,

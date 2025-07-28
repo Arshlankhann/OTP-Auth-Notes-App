@@ -50,31 +50,37 @@ Arshlan Khan
     return user;
 };
 
-const verifyOtp = async (email, otp, name = undefined, dateOfBirth = undefined, password = undefined) => {
+const verifyOtp = async (email, otp, name = undefined, dateOfBirth = undefined, password = undefined) => {  
     const user = await User.findOne({ email }).select('+otp +otpExpires +password');
 
+    // --- Start Debugging Logs (Service) ---
+    // console.log('--- Debugging verifyOtp (inside otpService) ---');
+    // console.log('Received email:', email);
+    // console.log('Received OTP (from frontend):', otp);
+    // console.log('User found in DB:', user ? user.email : 'None');
+    // if (user) {
+    //     console.log('Stored OTP in DB:', user.otp);
+    //     console.log('Stored OTP Expires in DB:', user.otpExpires);
+    //     console.log('Current time:', new Date());
+    //     console.log('Is OTP match:', user.otp === otp);
+    //     console.log('Is OTP expired:', user.otpExpires < new Date());
+    // }
+    // --- End Debugging Logs ---
+
     if (!user) {
+        console.log('VerifyOtp: User not found for email:', email);
         throw new Error('User not found');
     }
 
     if (user.otp !== otp) {
-        throw new Error('Invalid OTP');
+        console.log('VerifyOtp: Invalid OTP for user:', email);
+        throw new Error('Invalid OTP. Please ensure you are using the latest OTP.');
     }
 
     if (user.otpExpires < new Date()) {
-        throw new Error('OTP expired');
+        console.log('VerifyOtp: OTP expired for user:', email);
+        throw new Error('OTP expired. Please request a new one.');
     }
-
-    // --- Start Debugging Logs (retained for this specific issue) ---
-    console.log('--- Debugging verifyOtp (inside otpService) ---');
-    console.log('Received email:', email);
-    console.log('Received OTP:', otp);
-    console.log('Received name:', name, 'Type:', typeof name);
-    console.log('Received dateOfBirth:', dateOfBirth, 'Type:', typeof dateOfBirth);
-    console.log('Received password:', password ? 'Provided' : 'Not Provided');
-    console.log('Is dateOfBirth instanceof Date:', dateOfBirth instanceof Date);
-    console.log('Is dateOfBirth NaN (for Date objects):', dateOfBirth instanceof Date ? isNaN(dateOfBirth) : 'N/A');
-    // --- End Debugging Logs ---
 
     if (name !== undefined && name !== null &&
         dateOfBirth !== undefined && dateOfBirth !== null &&
@@ -84,20 +90,31 @@ const verifyOtp = async (email, otp, name = undefined, dateOfBirth = undefined, 
         if (dateOfBirth instanceof Date && !isNaN(dateOfBirth)) {
             user.dateOfBirth = dateOfBirth;
         } else {
+            console.error('VerifyOtp: Invalid Date of Birth provided during signup:', dateOfBirth);
             throw new Error('Invalid Date of Birth provided during signup.');
         }
         user.password = password;
 
         console.log('Assigned name, dateOfBirth, and password to user object for signup.');
     } else {
-        console.log('Name, DateOfBirth, or Password not provided (likely login flow or incomplete signup data).');
+        console.log('VerifyOtp: Name, DateOfBirth, or Password not provided (likely login/reset password flow).');
     }
 
-    user.isVerified = true; 
+    user.isVerified = true;
     user.otp = undefined; 
     user.otpExpires = undefined;
-    await user.save();
-    console.log('User saved successfully with isVerified:', user.isVerified);
+    
+    try {
+        await user.save(); 
+        console.log('VerifyOtp: User saved successfully with isVerified:', user.isVerified);
+    } catch (saveError) {
+        console.error('VerifyOtp: Error saving user after verification:', saveError);
+        if (saveError.name === 'ValidationError') {
+            console.error('VerifyOtp: Mongoose Validation Errors:', saveError.errors);
+        }
+        throw new Error('Failed to update user after OTP verification.');
+    }
+
 
     return user;
 };

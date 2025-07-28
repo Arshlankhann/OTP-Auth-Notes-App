@@ -2,29 +2,37 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Eye, EyeOff } from 'lucide-react'; 
-import { useAuth } from '../contexts/AuthContext';
-import Image from './rightimg.jpg'; 
+import authService from '../services/authService';
+import { useAuth } from '../contexts/AuthContext'; 
+import Image from './rightimg.jpg'; // Assuming this image path is correct
 
 const Login = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [otp, setOtp] = useState(''); 
+    const [step, setStep] = useState('request-otp'); 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [passwordVisible, setPasswordVisible] = useState(false); 
+    const [successMessage, setSuccessMessage] = useState('');
+    const [otpVisible, setOtpVisible] = useState(false); 
+    const [keepLoggedIn, setKeepLoggedIn] = useState(false); // New state for "Keep me logged in" checkbox
 
+    // FIX: Destructure 'login' directly, as that's the function exposed by AuthContext for login
     const { login } = useAuth(); 
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleRequestOtp = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
+        setSuccessMessage('');
+        console.log('Frontend: handleRequestOtp called with email:', email); 
         try {
-            await login(email, password); 
-            toast.success('Logged in successfully!');
-            navigate('/dashboard');
+            const data = await authService.loginRequestOtp(email); 
+            setSuccessMessage(data.message);
+            setStep('verify-otp'); 
+            toast.success(data.message);
         } catch (err) {
-            const errorMessage = err.response?.data?.message || 'Login failed. Please check your credentials.';
+            const errorMessage = err.response?.data?.message || 'Failed to send OTP. Please try again.';
             setError(errorMessage);
             toast.error(errorMessage);
         } finally {
@@ -32,8 +40,52 @@ const Login = () => {
         }
     };
 
-    const togglePasswordVisibility = () => {
-        setPasswordVisible(!passwordVisible);
+    const handleVerifyOtp = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError('');
+        setSuccessMessage('');
+
+        if (!otp || otp.length !== 6) {
+            setError('Please enter a valid 6-digit OTP.');
+            toast.error('Please enter a valid 6-digit OTP.');
+            setLoading(false);
+            return;
+        }
+
+        console.log('Frontend: handleVerifyOtp called.'); 
+        console.log('Frontend: Current email state:', email); 
+        console.log('Frontend: Current OTP state:', otp); 
+        console.log('Frontend: About to call login (from useAuth).'); // Updated log
+        console.log('Frontend: Type of login:', typeof login); // Check type of 'login'
+
+        // FIX: Check if 'login' is a function before calling
+        if (typeof login !== 'function') {
+            console.error('Frontend Error: login function from AuthContext is not available.');
+            setError('Authentication service not available. Please try refreshing the page.');
+            toast.error('Authentication service error.');
+            setLoading(false);
+            return;
+        }
+
+        try {
+            // Note: The 'keepLoggedIn' state would typically be passed to the backend
+            // for session management (e.g., extend token expiry).
+            // For this implementation, it's a frontend UI element.
+            await login(email, otp); 
+            toast.success('Logged in successfully!');
+            navigate('/dashboard'); 
+        } catch (err) {
+            const errorMessage = err.message || err.response?.data?.message || 'OTP verification failed. Please try again.';
+            setError(errorMessage);
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const toggleOtpVisibility = () => {
+        setOtpVisible(!otpVisible);
     };
 
     return (
@@ -48,60 +100,138 @@ const Login = () => {
                 <p className="form-subtitle">Please login to continue to your account</p>
 
                 {error && <div className="message error-message">{error}</div>}
+                {successMessage && <div className="message success-message">{successMessage}</div>}
 
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label className="form-label">Email</label>
-                        <input
-                            type="email"
-                            className="form-input"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email address"
-                            required
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label className="form-label">Password</label>
-                        <div className="password-group">
+                {step === 'request-otp' ? (
+                    <form onSubmit={handleRequestOtp}> 
+                        <div className="form-group">
+                            <label className="form-label">Email</label>
                             <input
-                                type={passwordVisible ? 'text' : 'password'}
-                                className="form-input password-input"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Enter your password"
+                                type="email"
+                                className="form-input"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Enter your email address"
                                 required
                             />
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">OTP</label>
+                            <div className="otp-group">
+                                <input
+                                    type={otpVisible ? 'text' : 'password'} 
+                                    className="form-input otp-input"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                    placeholder="Enter OTP"
+                                    maxLength="6"
+                                />
+                                <button
+                                    type="button"
+                                    className="otp-toggle" 
+                                    onClick={toggleOtpVisibility}
+                                >
+                                    {otpVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
+                            </div>
+                        </div>
+                        <div className="resend-otp-link" style={{ textAlign: 'center', marginTop: '10px'}}>
                             <button
                                 type="button"
-                                className="password-toggle"
-                                onClick={togglePasswordVisibility}
+                                className="btn-link"
+                                onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }}
+                                disabled={loading}
                             >
-                                {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                                Resend OTP
                             </button>
                         </div>
-                    </div>
+                        {/* Keep me logged in checkbox for request-otp step */}
+                        <div className="checkbox-container" style={{ textAlign: 'left', marginTop: '5px',marginBottom: '10px' }}>
+                            <input
+                                type="checkbox"
+                                id="keepLoggedInRequest"
+                                className="checkbox-input"
+                                checked={keepLoggedIn}
+                                onChange={(e) => setKeepLoggedIn(e.target.checked)}
+                            />
+                            <label htmlFor="keepLoggedInRequest" className="checkbox-label">Keep me logged in</label>
+                        </div>
+                        <button type="submit" className="signup-btn" disabled={loading}>
+                            {loading ? 'Sending OTP...' : 'Get OTP'}
+                        </button>
+                    </form>
+                ) : (
+                    <form onSubmit={handleVerifyOtp}> 
+                        <div className="form-group">
+                            <label className="form-label">Email</label> 
+                            <input
+                                type="email"
+                                className="form-input"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Enter your email address"
+                                required
+                                disabled 
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">OTP</label>
+                            <div className="otp-group">
+                                <input
+                                    type={otpVisible ? 'text' : 'password'} 
+                                    className="form-input otp-input"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                    placeholder="Enter OTP"
+                                    maxLength="6"
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    className="otp-toggle" 
+                                    onClick={toggleOtpVisibility}
+                                >
+                                    {otpVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
+                            </div>
+                        </div>
 
-                    <div className="forgot-password-link" style={{ textAlign: 'right', marginBottom: '20px' }}>
-                        <Link to="/forgot-password" style={{ color: '#007bff', textDecoration: 'none', fontWeight: 'bold' }}>
-                            Forgot Password?
-                        </Link>
-                    </div>
+                        <div className="resend-otp-link" style={{ textAlign: 'center', marginTop: '10px' }}>
+                            <button
+                                type="button"
+                                className="btn-link"
+                                onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }}
+                                disabled={loading}
+                            >
+                                Resend OTP
+                            </button>
+                        </div>
+                        {/* Keep me logged in checkbox for verify-otp step */}
+                        <div className="checkbox-container" style={{ textAlign: 'left', marginTop: '15px' }}>
+                            <input
+                                type="checkbox"
+                                id="keepLoggedInVerify"
+                                className="checkbox-input"
+                                checked={keepLoggedIn}
+                                onChange={(e) => setKeepLoggedIn(e.target.checked)}
+                            />
+                            <label htmlFor="keepLoggedInVerify" className="checkbox-label">Keep me logged in</label>
+                        </div>
+                        <button type="submit" className="signup-btn" disabled={loading}>
+                            {loading ? 'Signing In...' : 'Sign In'}
+                        </button>
+                    </form>
+                )}
 
-                    <button type="submit" className="signup-btn" disabled={loading}>
-                        {loading ? 'Signing In...' : 'Sign In'}
-                    </button>
-
-                    <div className="signin-link">
-                        Need an account?{' '}
-                        <Link to="/signup">Create one</Link>
-                    </div>
-                </form>
+                <div className="signin-link">
+                    Need an account?{' '}
+                    <Link to="/signup">Create one</Link>
+                </div>
             </div>
 
             <div className="visual-section">
-                <img src={Image} alt="Visual Representation" className='visual-image' />
+                {/* Removed the ternary operator, assuming Image is always a string URL */}
+                <img src={Image} alt="Decorative visual" className="visual-image" />
             </div>
         </div>
     );

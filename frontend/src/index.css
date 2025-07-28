@@ -576,7 +576,7 @@ body {
   padding-right: 40px;
 }
 
-.password-toggle {
+.otp-toggle {
   position: absolute;
   right: 12px;
   top: 50%;
@@ -592,14 +592,20 @@ body {
   z-index: 10;
 }
 
-.password-toggle:hover {
+.otp-toggle:hover {
   color: #333;
 }
 
-.password-toggle:hover {
+.otp-toggle:hover {
   color: #3b82f6;
 }
 
+.resend-otp-link{
+  text-align: left !important;
+}
+.checkbox-label{
+  font-weight: 500;
+}
 .submit-button {
   width: 100%;
   padding: 1rem;
@@ -647,7 +653,7 @@ body {
 
 .signin-link {
   text-align: center;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
   color: #4b5563;
   font-size: 0.875rem;
 }

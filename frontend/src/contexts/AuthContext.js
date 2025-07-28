@@ -15,8 +15,9 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = async (email, password) => { 
-        const data = await authService.login(email, password);
+    const login = async (email, otp) => { 
+        console.log('AuthContext: login function entered.'); 
+        const data = await authService.loginVerifyOtp(email, otp); 
         setUser(data.user);
         return data;
     };

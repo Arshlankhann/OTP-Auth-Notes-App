@@ -1,12 +1,12 @@
-
 const express = require('express');
 const router = express.Router();
 const {
     signUpRequestOtp,
     signUpVerifyOtp,
-    login, 
-    forgotPasswordRequestOtp, 
-    resetPasswordVerifyOtp,   
+    loginRequestOtp, 
+    loginVerifyOtp,  
+    forgotPasswordRequestOtp,
+    resetPasswordVerifyOtp,
     getMe
 } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
@@ -29,9 +29,6 @@ const dateOfBirthValidation = body('dateOfBirth')
     .notEmpty().withMessage('Date of Birth is required')
     .isISO8601().toDate().withMessage('Please enter a valid date of birth (YYYY-MM-DD)');
 
-const passwordValidation = body('password') 
-    .notEmpty().withMessage('Password is required')
-    .isLength({ min: 6 }).withMessage('Password must be at least 6 characters long');
 
 const newPasswordValidation = body('newPassword') 
     .notEmpty().withMessage('New password is required')
@@ -50,19 +47,28 @@ router.post(
         emailValidation,
         otpValidation,
         nameValidation,
-        dateOfBirthValidation,
-        passwordValidation 
+        dateOfBirthValidation
     ],
     signUpVerifyOtp
 );
 
 router.post(
-    '/login',
+    '/login-request-otp',
+    [emailValidation],
+    loginRequestOtp
+);
+
+router.post(
+    '/login-verify-otp',
     [
         emailValidation,
-        passwordValidation
+        otpValidation
     ],
-    login
+    (req, res, next) => {
+        console.log('*** Request received at /api/auth/login-verify-otp route! ***');
+        next();
+    },
+    loginVerifyOtp
 );
 
 router.post(
@@ -80,7 +86,6 @@ router.post(
     ],
     resetPasswordVerifyOtp
 );
-
 
 router.get('/me', protect, getMe);
 

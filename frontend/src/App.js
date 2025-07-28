@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 import ForgotPassword from './pages/ForgotPassword'; 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css'; 
-import Dashboard from './pages/Dashboard';
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
@@ -22,15 +22,21 @@ const PrivateRoute = ({ children }) => {
 function App() {
     return (
         <Router>
-            <AuthProvider>
+            <AuthProvider> 
                 <div className="container-wrapper"> 
                     <Routes>
-                        <Route path="/" element={<Navigate to="/dashboard" />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/signup" element={<SignUp />} />
                         <Route path="/signup" element={<SignUp />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/forgot-password" element={<ForgotPassword />} /> 
+                        <Route
+                            path="/dashboard" 
+                            element={
+                                <PrivateRoute>
+                                    <Dashboard />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route path="/" element={<Navigate to="/dashboard" />} />
                         <Route path="*" element={<h2>404 Not Found</h2>} /> 
                     </Routes>
                 </div>

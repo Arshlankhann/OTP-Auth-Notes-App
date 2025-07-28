@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Eye, EyeOff } from 'lucide-react'; 
+import { Eye, EyeOff } from 'lucide-react';
 import authService from '../services/authService';
 import { useAuth } from '../contexts/AuthContext';
-import Image from './rightimg.jpg';
+import Image from './rightimg.jpg'; 
 
 const SignUp = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
-    const [password, setPassword] = useState('');
     const [otp, setOtp] = useState('');
     const [step, setStep] = useState('request-otp');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [passwordVisible, setPasswordVisible] = useState(false); 
+    const [otpVisible, setOtpVisible] = useState(false);
 
     const { handleSignUp } = useAuth();
     const navigate = useNavigate();
@@ -46,21 +45,8 @@ const SignUp = () => {
         setError('');
         setSuccessMessage('');
 
-        if (!password) {
-            setError('Password is required.');
-            toast.error('Password is required.');
-            setLoading(false);
-            return;
-        }
-        if (password.length < 6) {
-            setError('Password must be at least 6 characters long.');
-            toast.error('Password must be at least 6 characters long.');
-            setLoading(false);
-            return;
-        }
-
         try {
-            await handleSignUp(email, otp, name, dateOfBirth, password);
+            await handleSignUp(email, otp, name, dateOfBirth, undefined);
             toast.success('Sign up successful! Welcome!');
             navigate('/dashboard'); 
         } catch (err) {
@@ -72,9 +58,8 @@ const SignUp = () => {
         }
     };
 
-
-    const togglePasswordVisibility = () => {
-        setPasswordVisible(!passwordVisible);
+    const toggleOtpVisibility = () => {
+        setOtpVisible(!otpVisible);
     };
 
     return (
@@ -96,7 +81,7 @@ const SignUp = () => {
                         <label className="form-label">Your Name</label>
                         <input
                             type="text"
-                            className="form-input" 
+                            className="form-input"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="Enter your full name"
@@ -109,7 +94,7 @@ const SignUp = () => {
                         <label className="form-label">Date of Birth</label>
                         <input
                             type="date"
-                            className="form-input" 
+                            className="form-input"
                             value={dateOfBirth}
                             onChange={(e) => setDateOfBirth(e.target.value)}
                             required
@@ -134,9 +119,9 @@ const SignUp = () => {
                         <>
                             <div className="form-group">
                                 <label className="form-label">OTP</label>
-                                <div className="otp-group"> 
+                                <div className="otp-group">
                                     <input
-                                        type="text" 
+                                        type={otpVisible ? 'text' : 'password'}
                                         className="form-input otp-input"
                                         value={otp}
                                         onChange={(e) => setOtp(e.target.value)}
@@ -144,34 +129,20 @@ const SignUp = () => {
                                         maxLength="6"
                                         required
                                     />
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <label className="form-label">Set Password</label>
-                                <div className="password-group"> 
-                                    <input
-                                        type={passwordVisible ? 'text' : 'password'}
-                                        className="form-input password-input" 
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="Set your password"
-                                        required
-                                        minLength="6"
-                                    />
                                     <button
                                         type="button"
-                                        className="password-toggle" 
-                                        onClick={togglePasswordVisibility}
+                                        className="otp-toggle"
+                                        onClick={toggleOtpVisibility}
                                     >
-                                        {passwordVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+                                        {otpVisible ? <EyeOff size={20} /> : <Eye size={20} />}
                                     </button>
                                 </div>
                             </div>
-                            <div className="resend-otp-link">
+
+                            <div className="resend-otp-link" style={{ textAlign: 'center', marginTop: '10px' }}>
                                 <button
                                     type="button"
-                                    className="btn-link" 
+                                    className="btn-link"
                                     onClick={(e) => { e.preventDefault(); handleRequestOtp(e); }}
                                     disabled={loading}
                                 >
@@ -198,8 +169,8 @@ const SignUp = () => {
                 </form>
             </div>
 
-            <div className="visual-section"> 
-                <img src={Image} alt="Decorative visual" className="visual-image" />
+            <div className="visual-section">
+                <img src={typeof Image === 'string' ? Image : ''} alt="Decorative visual" className="visual-image" />
             </div>
         </div>
     );

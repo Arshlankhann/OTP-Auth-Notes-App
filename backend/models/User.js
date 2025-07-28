@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs'); 
 
 const UserSchema = new mongoose.Schema({
-    name: { 
+    name: {
         type: String,
-        required: function() { return this.isVerified; }, 
+        required: false,
         trim: true
     },
     email: {
@@ -13,14 +13,14 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         match: [/.+@.+\..+/, 'Please enter a valid email address']
     },
-    password: { 
+    password: {
         type: String,
-        required: function() { return this.isVerified; },
-        select: false 
+        required: false,
+        select: false
     },
     otp: {
         type: String,
-        select: false 
+        select: false
     },
     otpExpires: {
         type: Date,
@@ -30,9 +30,9 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    dateOfBirth: { 
+    dateOfBirth: {
         type: Date,
-        required: function() { return this.isVerified; } 
+        required: false 
     },
     createdAt: {
         type: Date,
@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre('save', async function (next) {
-    if (this.isModified('password')) {
+    if (this.isModified('password') && this.password) { 
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
     }
@@ -51,7 +51,7 @@ UserSchema.pre('save', async function (next) {
 UserSchema.methods.matchPassword = async function (enteredPassword) {
     if (!this.password) {
         const userWithPassword = await mongoose.model('User').findById(this._id).select('+password');
-        if (!userWithPassword) return false; 
+        if (!userWithPassword || !userWithPassword.password) return false; 
         this.password = userWithPassword.password; 
     }
     return await bcrypt.compare(enteredPassword, this.password);
